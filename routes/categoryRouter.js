@@ -1,9 +1,6 @@
 const { Router } = require("express");
 const categoryRouter = Router();
-const itemRouter = Router();
 const categoryController = require('../controllers/categoryController');
-const itemController = require('../controllers/itemController');
-
 
 categoryRouter.get("/", categoryController.getAllCategories)
 
@@ -19,6 +16,17 @@ categoryRouter.post("/category/:categoryID/delete", categoryController.deleteCat
 
 categoryRouter.get("/category/:categoryID/item/create", categoryController.createItemGet)
 categoryRouter.post("/category/:categoryID/item/create", categoryController.createItemPost)
+
+categoryRouter.get("/category/:categoryID/item/:itemID", categoryController.getItemByID)
+
+categoryRouter.get("/category/:categoryID/item/:itemID/edit", categoryController.updateItemGet)
+categoryRouter.post("/category/:categoryID/item/:itemID/edit", categoryController.updateItemPost)
+
+categoryRouter.post("/category/:categoryID/item/:itemID/delete", categoryController.deleteItemPost)
+
+
+
+
 
 
 

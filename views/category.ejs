@@ -8,11 +8,11 @@
   <body>
     <h1><%= category.name %></h1>
     <a href="/category/<%=category.id%>/item/create">
-        <button>Add item</button>
-      </a>
+      <button>Add item</button>
+    </a>
     <ul>
       <%if (locals.items) {%> <% items.forEach ( item=> { %>
-      <li><a href="/category/<%= item.id %>"><%= item.name %></a></li>
+      <li><a href="/category/<%= category.id %>/item/<%= item.id %>"><%= item.name %></a></li>
       <% }); %> <%}%>
     </ul>
     <form
@@ -28,5 +28,6 @@
       </button>
     </form>
     <a href="/category/<%= category.id %>/edit">Change Category Name</a>
+    <a href="/">Back to all categories</a>
   </body>
 </html>

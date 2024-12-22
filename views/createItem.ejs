@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/category/<%=categoryID%>/item/create" method="POST">
+        <label for="name">Item name:</label>
+        <input type="text" name="name" id="name">
+        <label for="description">Item description:</label>
+        <input type="text" name="description" id="description">
+        <label for="image_src">Item Picture Source:</label>
+        <input type="text" name="image_src" id="image_src">
+        <label for="category">Item's Category:</label>
+        <input type="text" name="category" id="category" value="<%=categoryID%>">
+        <button type="submit">Submit</button>      
+    </form>
+    <a href="/category/<%=categoryID%>">Back to category</a>
+</body>
+</html>

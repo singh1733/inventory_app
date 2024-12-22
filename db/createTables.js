@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS items (
   name VARCHAR ( 255 ),
   description VARCHAR ( 10000 ),
   image_src VARCHAR ( 10000 ),
-  FOREIGN KEY (category_id) REFERENCES categories (id)
+  FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
 );
 
 `;

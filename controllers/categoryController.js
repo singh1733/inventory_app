@@ -1,7 +1,9 @@
-const db = require("../db/categoryQueries");
+const dbCategories = require("../db/categoryQueries");
+const dbItems = require("../db/itemQueries");
+
 
 async function getAllCategories(req, res) {
-  const categories = await db.getAllCategories();
+  const categories = await dbCategories.getAllCategories();
   res.render("index", { categories: categories });
 }
 
@@ -10,29 +12,39 @@ function createCategoryGet(req, res) {
 }
 
 async function createCategoryPost(req, res) {
-  await db.insertCategory(req.body.name);
+  await dbCategories.insertCategory(req.body.name);
   res.redirect("/");
 }
 
 async function getCategoryByID(req, res) {
-  const category = await db.getCategoryByID(req.params.categoryID);
-  res.render("category", { category: category });
+  const category = await dbCategories.getCategoryByID(req.params.categoryID);
+  const items = await dbCategories.getCategoryItems(req.params.categoryID);
+  res.render("category", { category: category, items: items });
 }
 
 async function updateCategoryGet(req, res) {
-  const category = await db.getCategoryByID(req.params.categoryID);
+  const category = await dbCategories.getCategoryByID(req.params.categoryID);
   res.render("updateCategory", { category: category });
 }
 
 async function updateCategoryPost(req, res) {
-  await db.updateCategory(req.params.categoryID, req.body.name);
+  await dbCategories.updateCategory(req.params.categoryID, req.body.name);
   res.redirect("/");
 }
 
 async function deleteCategoryPost(req, res) {
-    await db.deleteCategory(req.params.categoryID);
-    res.redirect("/");
+  await dbCategories.deleteCategory(req.params.categoryID);
+  res.redirect("/");
 }
+
+function createItemGet(req, res) {
+    res.render("createItem", {categoryID: req.params.categoryID});
+  }
+  
+  async function createItemPost(req, res) {
+    await dbItems.insertItem(req.params.categoryID, req.body.name, req.body.description, req.body.image_src);
+    res.redirect("/category/"+req.params.categoryID);
+  }
 
 module.exports = {
   getAllCategories,
@@ -41,5 +53,7 @@ module.exports = {
   getCategoryByID,
   updateCategoryGet,
   updateCategoryPost,
-  deleteCategoryPost
+  deleteCategoryPost,
+  createItemGet,
+  createItemPost
 };

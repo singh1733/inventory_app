@@ -16,7 +16,7 @@ async function getCategoryByID(id) {
   return rows[0];
 }
 
-async function getCategoryItems(category_id) {
+async function getCategoryItems( category_id) {
   const { rows } = await pool.query(
     "SELECT * FROM categories JOIN items ON categories.id=items.category_id WHERE categories.id=$1",
     [category_id]

@@ -6,7 +6,11 @@
     <title>Document</title>
   </head>
   <body>
-    <form action="/category/<%=category.id%>/item/<%=item.id%>/edit" method="POST">
+    <% const editAction = categoryID ?
+    `/category/${categoryID}/item/${item.id}/edit` : `/items/${item.id}/edit`;
+    const backLink = categoryID ? `/category/${categoryID}` : `/items/${item.id}`;%>
+
+    <form action="<%= editAction %>" method="POST">
       <label for="name">Item name:</label>
       <input type="text" name="name" id="name" value="<%= item.name %>" />
       <label for="description">Item description:</label>
@@ -28,10 +32,12 @@
         type="number"
         name="category"
         id="category"
-        value="<%=category.id%>"
+        value="<%=item.category_id%>"
       />
       <button type="submit">Submit</button>
     </form>
-    <a href="/category/<%=category.id%>">Back to category</a>
+    <a href="<%= backLink %>">
+        Back to <%= categoryID ? 'category' : `${item.name}` %>
+      </a>
   </body>
 </html>

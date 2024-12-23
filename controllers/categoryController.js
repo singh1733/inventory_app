@@ -1,9 +1,14 @@
 const dbCategories = require("../db/categoryQueries");
 const dbItems = require("../db/itemQueries");
 
+const links = [
+  { href: "/", text: "Home" },
+  { href: "/items", text: "All Items" },
+];
+
 async function getAllCategories(req, res) {
   const categories = await dbCategories.getAllCategories();
-  res.render("index", { categories: categories });
+  res.render("index", { categories: categories, links: links });
 }
 
 function createCategoryGet(req, res) {
@@ -51,26 +56,30 @@ async function createItemPost(req, res) {
 }
 
 async function getItemByID(req, res) {
+console.log('ID received:', req.params.itemID);
   const category = await dbCategories.getCategoryByID(req.params.categoryID);
   const item = await dbItems.getItemByID(req.params.itemID);
-  res.render("item", { category: category, item: item });
+  console.log('Item Image Source:', item.image_src);
+  res.render("item", { category: category, item: item, categoryID: req.params.categoryID });
 }
 
 async function updateItemGet(req, res) {
   const category = await dbCategories.getCategoryByID(req.params.categoryID);
   const item = await dbItems.getItemByID(req.params.itemID);
-  res.render("updateItem", { category: category, item: item });
+  res.render("updateItem", { categoryID: req.params.categoryID, item: item });
 }
 
 async function updateItemPost(req, res) {
   await dbItems.updateItem(
     req.params.itemID,
-    req.body.category,
+    req.body.category_id,
     req.body.name,
     req.body.description,
     req.body.image_src
   );
-  res.redirect("/category/" + req.params.categoryID+"/item/"+req.params.itemID);
+  res.redirect(
+    "/category/" + req.params.categoryID + "/item/" + req.params.itemID
+  );
 }
 
 async function deleteItemPost(req, res) {

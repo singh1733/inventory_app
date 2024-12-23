@@ -6,22 +6,33 @@
     <title>Document</title>
   </head>
   <body>
-    <form action="/category/<%=categoryID%>/item/create" method="POST">
+    <% const formAction = categoryID ? `/category/${categoryID}/item/create` :
+    "/item/create"; %> <% const backLink = categoryID ?
+    `/category/${categoryID}` : "/item"; %>
+
+    <form action="<%= formAction %>" method="POST">
       <label for="name">Item name:</label>
       <input type="text" name="name" id="name" />
+
       <label for="description">Item description:</label>
       <input type="text" name="description" id="description" />
+
       <label for="image_src">Item Picture Source:</label>
       <input type="text" name="image_src" id="image_src" />
-      <label for="category">Item's Category:</label>
+
+      <label for="category_id">Item's Category:</label>
       <input
         type="text"
-        name="category"
-        id="category"
-        value="<%=categoryID%>"
+        name="category_id"
+        id="category_id"
+        value="<%= categoryID || '' %>"
       />
+
       <button type="submit">Submit</button>
     </form>
-    <a href="/category/<%=categoryID%>">Back to category</a>
+
+    <a href="<%= backLink %>"
+      >Back to <%= categoryID ? 'category' : 'items' %></a
+    >
   </body>
 </html>

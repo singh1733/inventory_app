@@ -7,13 +7,13 @@
   </head>
   <body>
     <%- include('navbar', {links: links}) %>
-    <a href="/category/create">
-      <button>Add Category</button>
+    <a href="/items/create">
+      <button>Add Item</button>
     </a>
     <ul>
-      <%if (locals.categories) {%>
-      <% categories.forEach ( category=> { %>
-      <li><a href="/category/<%= category.id %>"><%= category.name %></a></li>
+      <%if (locals.items) {%>
+      <% items.forEach ( item=> { %>
+      <li><a href="/items/<%= item.id %>"><%= item.name %></a></li>
       <% }); %>
       <%}%>
     </ul>
